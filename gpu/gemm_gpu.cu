@@ -36,7 +36,10 @@
 	CUDA_CHECK(cudaMemcpy(refC, d_Cref_ ## name, Ref::M * Ref::N * sizeof(float), cudaMemcpyDeviceToHost)); \
 	if (!ref.checkRef(refC)){ \
 		std::cerr << "check ref failed!" << std::endl; \
-	};
+	}; \
+	cudaFree(d_Aref_ ## name); \
+	cudaFree(d_Bref_ ## name); \
+	cudaFree(d_Cref_ ## name);
 
 #define TIME(name) \
 	float *d_A_ ## name, *d_B_ ## name, *d_C_ ## name; \
